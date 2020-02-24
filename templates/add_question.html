@@ -1,0 +1,11 @@
+
+
+
+<form method="post" action=" ">
+    Welcome ,
+    {{user.username}}
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Submit">
+</form>
+

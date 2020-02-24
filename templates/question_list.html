@@ -1,0 +1,34 @@
+<html>
+<body>
+<div class = "container">
+    Welcome ,
+    {{user.username}}
+    <br/>
+    <h1>Question List ...</h1>
+    <table>
+    {% for q in questions %}
+        <tr>
+            <td>{{q.id}}</td>
+            <td> </td>
+            <td>{{q.question}}</td>
+<!--            <td><a href=" {% url 'quora_app:upvote' %}? = Question " > upvote </a>{{ q.vote.count  }}</td>-->
+            <td>
+                <form method="post" action="{% url 'quora_app:upvote' %}? content_object = Question">
+                    {% csrf_token %}
+                        <input type="submit" value="Upvote">{{ q.vote.count  }}
+                </form>
+
+            </td>
+
+        {% for answer in q.answer_set.all %}
+        <li>{{answer.content}} by {{answer.user.username}} </li>
+        {% endfor %}
+        </tr>
+    {% endfor %}
+
+    </table>
+   <a href="{% url 'quora_app:index' %}" > Back To index </a><br>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<html>
+<body>
+<div >
+
+    <h1>Home page ...</h1>
+
+{% if request.user.is_authenticated %}
+<a href="{% url 'account_logout' %}"> logout</a>
+{% endif %}
+<table>
+{% if request.user.is_anonymous %}
+<tr><td><a href="{% url 'account_signup' %}"> signup</a></td></tr>
+    {% endif %}
+    Welcome , USERNAME :
+    {{user.username}}
+</div><br><br>
+<a href="{% url 'quora_app:add_question' %}" > add question </a><br>
+<a href="{% url 'quora_app:add_answer' %}" > add answer</a><br>
+<a href="{% url 'quora_app:question_list' %}" > question list </a><br>
+<a href="{% url 'quora_app:topic' %}" > select topic </a><br>
+
+</body>
+</html>

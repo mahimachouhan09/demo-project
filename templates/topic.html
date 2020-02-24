@@ -1,0 +1,11 @@
+
+
+{% block content %}
+
+<form method='post'>
+    {% csrf_token %}
+    <h3>Select topics of your interest: </h3>
+    {{ form.as_p }}
+    <input type='submit' value='submit'>
+</form>
+{% endblock %}
