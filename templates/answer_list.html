@@ -1,0 +1,43 @@
+<html>
+<body>
+<div class = "container">
+    Welcome ,
+    {{user.username}}
+    <br/>
+    <h1>see Answer ...</h1>
+    <table>
+        <tr>
+            <td>{{question.id}}</td>
+            <td>{{question}}</td>
+        </tr>
+
+        <thead>
+        <tr>
+            <td>Serial No</td>
+            <td>Answers</td>
+            <td>Upvote</td>
+            <td>Down Vote</td>
+            <td>UpVote Count</td>
+            <td>Downvote Count</td>
+            <td>Total Count</td>
+        </tr>
+        </thead>
+
+        {% for answer in q.answer_set.all %}
+        <tr>
+        <td>{{answer.content}} by {{answer.user.username}}</td>
+         <td>
+             <a href="{% url 'quora_app:upvote' q.id%}?cb=Answer">Upvote</a>
+         </td>
+
+            <td>
+             <a href="{% url 'quora_app:downvote' q.id%}?cb=Answer">Upvote</a>
+         </td>
+        {% endfor %}
+
+        <a href="{% url 'quora_app:index' %}" > Back To index </a>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

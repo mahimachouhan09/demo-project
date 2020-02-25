@@ -6,23 +6,49 @@
     <br/>
     <h1>Question List ...</h1>
     <table>
+        <thead>
+        <tr>
+            <td>Serial No</td>
+            <td>Question</td>
+            <td>Answers</td>
+            <td>Upvote</td>
+            <td>Down Vote</td>
+            <td>UpVote Count</td>
+            <td>Downvote Count</td>
+            <td>Total Count</td>
+        </tr>
+        </thead>
     {% for q in questions %}
         <tr>
             <td>{{q.id}}</td>
-            <td> </td>
             <td>{{q.question}}</td>
-<!--            <td><a href=" {% url 'quora_app:upvote' %}? = Question " > upvote </a>{{ q.vote.count  }}</td>-->
             <td>
-                <form method="post" action="{% url 'quora_app:upvote' %}? content_object = Question">
-                    {% csrf_token %}
-                        <input type="submit" value="Upvote">{{ q.vote.count  }}
-                </form>
-
+                <a href="{% url 'quora_app:answer_list' q.id%}">see answer</a>
+            </td>
+            <td>
+                <a href="{% url 'quora_app:upvote' q.id%}?cb=Question">Upvote</a>
+            </td>
+            <td>
+                <a href="{% url 'quora_app:downvote' q.id%}?cb=Question">Downvote</a>
+            </td>
+            <td>
+                {{ q.vote.count }}
             </td>
 
-        {% for answer in q.answer_set.all %}
-        <li>{{answer.content}} by {{answer.user.username}} </li>
-        {% endfor %}
+            <td>
+                {{ q.vote.count }}
+            </td>
+
+            <td>
+                {{ q.vote.count }}
+            </td>
+<!--        {#% for answer in q.answer_set.all %#}-->
+<!--        <tr>-->
+<!--        <td>{#{answer.content}#} by {#{answer.user.username}#}</td>-->
+<!--         <td>-->
+<!--             <a href="{#% url 'quora_app:upvote' q.id%#}?cb=Answer">Upvote</a>-->
+<!--         </td>-->
+<!--        {#% endfor %#}-->
         </tr>
     {% endfor %}
 

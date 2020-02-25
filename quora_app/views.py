@@ -24,9 +24,13 @@ def select_topic(request):
 
 
 def question_list(request):
-    #import pdb;pdb.set_trace()
     questions = Question.objects.all()
     return render(request, 'question_list.html', {'questions': questions })
+
+def answer_list(request,question_id):
+    #import pdb;pdb.set_trace()
+    answer = Answer.objects.all()
+    return render(request, 'answer_list.html', {'answer': answer })
 
 # def add_question(request):
 #     if request.method == 'POST':
@@ -57,32 +61,26 @@ def add_answer(request):
     form = AnswerForm(initial= {'user': request.user.id })
     return render(request, 'add_answer.html', {'form': form})
 
-def upvote(request):
-    if request.method == 'POST':
-        form = ActivityForm(request.POST)
-        # my_model = ContentType.objects.get(app_label='quora_app', model='Activity')
-        # object = my_model.id
-        if content_object == Question:
-        #activity = Activity.objects.create(content_object=question, activity_type=Activity.UP_VOTE, user=user)
-            if form.is_valid():
-                form.user = request.user
-                form.question = request.content_type[request.POST]
-                form.activity_type = request.POST
-                for question1 in question:
-                    question1.vote += 1
-                    form.save()
-        return redirect(reverse('/'))
+def upvote(request,object_id):
+    if request.GET.get('cb') == 'Question':
+        question = Question.objects.get(pk=object_id)
+        Activity.objects.create(content_object=question, activity_type=Activity.UP_VOTE, user=request.user.profile)
+        return redirect(reverse('quora_app:question_list'))
+    elif request.GET.get('cb') == 'Answer':
+        answer = Answer.objects.get(pk=object_id)
+        Activity.objects.create(content_object=answer, activity_type=Activity.UP_VOTE, user=request.user.profile)
+    return redirect(reverse('quora_app:question_list'))
 
-        # else:
-        #     content = request.POST
-        #     if form.is_valid():
-        #         #form.vote.set(Activity.objects.all())`
-        #         form.question = request.content_object['answer']
-        #         form.activity_type = request.POST
-        #         for answer in content:
-        #             answer.vote += 1
-        #             form.save()
-        #     return redirect(reverse('quora_app:question_list'))
+def downvote(request,object_id):
+    import pdb;pdb.set_trace()
+    if request.GET.get('cb') == 'Question':
+        question = Question.objects.get(pk=object_id)
+        Activity.objects.create(content_object=question, activity_type=Activity.DOWN_VOTE, user=request.user.profile)
+        return redirect(reverse('quora_app:question_list'))
+    elif request.GET.get('cb') == 'Answer':
+        answer = Answer.objects.get(pk=object_id)
+        Activity.objects.create(content_object=answer, activity_type=Activity.DOWN_VOTE, user=request.user.profile)
+    return redirect(reverse('quora_app:question_list'))
 
-    form = ActivityForm(initial= {'user': request.user.id })
-    return render(request, 'upvote.html', {'form': form})
+def totalvote(request,object_id):
+    pass

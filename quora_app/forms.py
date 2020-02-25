@@ -61,5 +61,7 @@ class ActivityForm(forms.ModelForm):
         model = Activity
         fields = '__all__'
         widgets = {'user': forms.HiddenInput(),
+                   'activity_type': forms.HiddenInput(),
+                   'content_type': forms.HiddenInput(),
                     }
 
