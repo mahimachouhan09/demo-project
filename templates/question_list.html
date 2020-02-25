@@ -12,8 +12,8 @@
             <td>Question</td>
             <td>Answers</td>
             <td>Upvote</td>
-            <td>Down Vote</td>
             <td>UpVote Count</td>
+            <td>Down Vote</td>
             <td>Downvote Count</td>
             <td>Total Count</td>
         </tr>
@@ -28,12 +28,14 @@
             <td>
                 <a href="{% url 'quora_app:upvote' q.id%}?cb=Question">Upvote</a>
             </td>
+
+            <td>
+                {{ q.vote.count }}
+            </td>
+
             <td>
                 <a href="{% url 'quora_app:downvote' q.id%}?cb=Question">Downvote</a>
             </td>
-            <td>
-                {{ q.vote.count }}
-            </td>
 
             <td>
                 {{ q.vote.count }}
@@ -42,19 +44,10 @@
             <td>
                 {{ q.vote.count }}
             </td>
-<!--        {#% for answer in q.answer_set.all %#}-->
-<!--        <tr>-->
-<!--        <td>{#{answer.content}#} by {#{answer.user.username}#}</td>-->
-<!--         <td>-->
-<!--             <a href="{#% url 'quora_app:upvote' q.id%#}?cb=Answer">Upvote</a>-->
-<!--         </td>-->
-<!--        {#% endfor %#}-->
         </tr>
     {% endfor %}
-
     </table>
    <a href="{% url 'quora_app:index' %}" > Back To index </a><br>
-
 </div>
 </body>
 </html>

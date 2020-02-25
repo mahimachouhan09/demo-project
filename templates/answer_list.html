@@ -1,43 +1,54 @@
-<html>
-<body>
+
+{% block content %}
+
 <div class = "container">
-    Welcome ,
-    {{user.username}}
+    Welcome , {{user.username}}
     <br/>
     <h1>see Answer ...</h1>
-    <table>
-        <tr>
-            <td>{{question.id}}</td>
-            <td>{{question}}</td>
-        </tr>
-
+       <table>
+            {{question.id}}
+            {{question}}
+       </table>
+<hr>
+       <table border = 0px>
         <thead>
         <tr>
             <td>Serial No</td>
             <td>Answers</td>
+            <td></td>
             <td>Upvote</td>
-            <td>Down Vote</td>
             <td>UpVote Count</td>
+            <td>Down Vote</td>
             <td>Downvote Count</td>
-            <td>Total Count</td>
         </tr>
         </thead>
 
-        {% for answer in q.answer_set.all %}
+        {% for answer in question.answer_set.all %}
         <tr>
+            <td>{{answer.id}}</td>
         <td>{{answer.content}} by {{answer.user.username}}</td>
+            <td></td>
          <td>
-             <a href="{% url 'quora_app:upvote' q.id%}?cb=Answer">Upvote</a>
+             <a href="{% url 'quora_app:upvote' answer.id %}?cb=Answer">Upvote</a>
          </td>
 
-            <td>
-             <a href="{% url 'quora_app:downvote' q.id%}?cb=Answer">Upvote</a>
+         <td>
+             {{answer.vote.count}}
          </td>
+
+          <td>
+             <a href="{% url 'quora_app:downvote' answer.id %}?cb=Answer">downvote</a>
+           </td>
+
+         <td>
+             {{answer.vote.count}}
+         </td>
+
         {% endfor %}
 
-        <a href="{% url 'quora_app:index' %}" > Back To index </a>
         </tr>
     </table>
+    <a href="{% url 'quora_app:question_list' %}" > Back </a><br>
+    <a href="{% url 'quora_app:index' %}" > Back To index </a>
 </div>
-</body>
-</html>
+ {% endblock %}

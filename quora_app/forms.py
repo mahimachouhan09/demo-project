@@ -1,9 +1,8 @@
 from django import forms
-from .models import Activity, Answer,Follow,Profile,Question,Topic
+from .models import Activity, Answer,Profile,Question,Topic
 from django.forms import ModelForm
-from allauth.account.forms import LoginForm, SignupForm, SetPasswordForm
-from multiselectfield import MultiSelectField
-from django.contrib.contenttypes.models import ContentType
+from allauth.account.forms import SignupForm
+
 
 class CustomSignupForm(SignupForm):
     first_name = forms.CharField(max_length=100 )
@@ -12,8 +11,6 @@ class CustomSignupForm(SignupForm):
     profile_pic = forms.ImageField(required= False)
 
     def save(self, request):
-        #import pdb;pdb.set_trace()
-
         user = super(CustomSignupForm, self).save(request)
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']
@@ -34,6 +31,7 @@ class TopiclistForm(forms.Form):
     def save(self, request):
         profile = request.user.profile
         topics = self.cleaned_data['topics']
+
         for topic in topics:
             topic = Topic.objects.get(pk=topic)
             profile.topics.add(topic)

@@ -1,6 +1,4 @@
-<html>
-<body>
-<div >
+ {% block content %}
 
     <h1>Home page ...</h1>
 
@@ -13,11 +11,10 @@
     {% endif %}
     Welcome , USERNAME :
     {{user.username}}
-</div><br><br>
+</div><br>
 <a href="{% url 'quora_app:add_question' %}" > add question </a><br>
 <a href="{% url 'quora_app:add_answer' %}" > add answer</a><br>
 <a href="{% url 'quora_app:question_list' %}" > question list </a><br>
 <a href="{% url 'quora_app:topic' %}" > select topic </a><br>
-
-</body>
-</html>
+</table>
+ {% endblock %}
