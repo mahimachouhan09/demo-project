@@ -3,7 +3,6 @@ from .models import Activity, Answer,Profile,Question,Topic
 from django.forms import ModelForm
 from allauth.account.forms import SignupForm
 
-
 class CustomSignupForm(SignupForm):
     first_name = forms.CharField(max_length=100 )
     last_name = forms.CharField(max_length = 100)
@@ -22,7 +21,6 @@ class CustomSignupForm(SignupForm):
 
         p.save()
         return user
-
 
 class TopiclistForm(forms.Form):
     OPTIONS = [(topic.id, topic.name) for topic in Topic.objects.all() ]

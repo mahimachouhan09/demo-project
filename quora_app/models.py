@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from multiselectfield import MultiSelectField
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.contenttypes.models import ContentType
@@ -22,13 +21,10 @@ class Profile(models.Model):
 class Activity(models.Model):
     UP_VOTE = 'U'
     DOWN_VOTE = 'D'
-    #NONE = 'no_act'
     ACTIVITY_TYPES = (
         (UP_VOTE, 'Up Vote'),
         (DOWN_VOTE, 'Down Vote'),
-        #(NONE ,'no_act'),
     )
-
     activity_type = models.CharField(max_length=6, choices=ACTIVITY_TYPES)
     user = models.ForeignKey(Profile, null=True , on_delete=models.CASCADE)
     date = models.DateField(auto_now_add=True, null=True)
@@ -47,6 +43,12 @@ class Question(models.Model):
     description = models.CharField(max_length = 100, null= True ,blank =True)
     vote = GenericRelation(Activity)
 
+    def down_vote_count(self):
+        return self.vote.filter(activity_type='D').count()
+
+    def up_vote_count(self):
+        return self.vote.filter(activity_type='U').count()
+
     def __str__(self):
         return "%s " % self.question
 
@@ -56,7 +58,12 @@ class Answer(models.Model):
     content = models.TextField()
     reply_date = models.DateField(auto_now_add=True)
     vote = GenericRelation(Activity)
-    #is_anonymous = models.BooleanField(default=False)
+
+    def down_vote_count(self):
+        return self.vote.filter(activity_type='D').count()
+
+    def up_vote_count(self):
+        return self.vote.filter(activity_type='U').count()
 
     def __str__(self):
         return "%s" % self.content

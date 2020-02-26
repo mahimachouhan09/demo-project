@@ -1,9 +1,6 @@
-<html>
-<body>
+{% extends 'base.html' %}
+{% block content %}
 <div class = "container">
-    Welcome ,
-    {{user.username}}
-    <br/>
     <h1>Question List ...</h1>
     <table>
         <thead>
@@ -15,7 +12,7 @@
             <td>UpVote Count</td>
             <td>Down Vote</td>
             <td>Downvote Count</td>
-            <td>Total Count</td>
+<!--            <td>Total Count</td>-->
         </tr>
         </thead>
     {% for q in questions %}
@@ -30,7 +27,7 @@
             </td>
 
             <td>
-                {{ q.vote.count }}
+                {{ q.up_vote_count }}
             </td>
 
             <td>
@@ -38,16 +35,12 @@
             </td>
 
             <td>
-                {{ q.vote.count }}
+                {{ q.down_vote_count }}
             </td>
 
-            <td>
-                {{ q.vote.count }}
-            </td>
         </tr>
     {% endfor %}
     </table>
    <a href="{% url 'quora_app:index' %}" > Back To index </a><br>
 </div>
-</body>
-</html>
+ {% endblock %}

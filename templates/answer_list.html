@@ -1,16 +1,11 @@
-
+{% extends 'base.html' %}
 {% block content %}
-
 <div class = "container">
-    Welcome , {{user.username}}
-    <br/>
     <h1>see Answer ...</h1>
-       <table>
             {{question.id}}
             {{question}}
-       </table>
 <hr>
-       <table border = 0px>
+       <table>
         <thead>
         <tr>
             <td>Serial No</td>
@@ -33,19 +28,17 @@
          </td>
 
          <td>
-             {{answer.vote.count}}
+             {{answer.up_vote_count}}
          </td>
 
           <td>
              <a href="{% url 'quora_app:downvote' answer.id %}?cb=Answer">downvote</a>
-           </td>
+          </td>
 
          <td>
-             {{answer.vote.count}}
+             {{answer.down_vote_count}}
          </td>
-
         {% endfor %}
-
         </tr>
     </table>
     <a href="{% url 'quora_app:question_list' %}" > Back </a><br>

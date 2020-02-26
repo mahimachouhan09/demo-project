@@ -9,9 +9,7 @@ urlpatterns = [
     path('add_question/' ,views.add_question, name='add_question'),
     path('add_answer/' ,views.add_answer , name= 'add_answer'),
     path('question_list/' ,views.question_list , name= 'question_list'),
-    #path('index/<int:question_id>' ,views.add_answer , name= 'add_answer'),
     path('<int:object_id>/upvote/', views.upvote, name='upvote'),
     path('downvote/<int:object_id>/', views.downvote, name='downvote'),
-    path('vote/<int:object_id>/', views.totalvote, name='totalvote'),
     path('<int:question_id>/answer_list/', views.answer_list, name='answer_list'),
 ]
