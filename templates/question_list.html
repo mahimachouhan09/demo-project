@@ -1,8 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class = "container">
+   <div class="navbar-header">
+<a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+<form role="search" class="navbar-form-custom" action=".">
+<div class="form-group">
+<input type="text" placeholder="Search for something..." class="form-control" name="search" id="searchbar" >
+</div>
+</form>
+</div>
     <h1>Question List ...</h1>
     <table>
+        <a href="{% url 'quora_app:add_question' %}" > add question </a><br>
         <thead>
         <tr>
             <td>Serial No</td>
@@ -12,7 +21,6 @@
             <td>UpVote Count</td>
             <td>Down Vote</td>
             <td>Downvote Count</td>
-<!--            <td>Total Count</td>-->
         </tr>
         </thead>
     {% for q in questions %}
@@ -37,7 +45,6 @@
             <td>
                 {{ q.down_vote_count }}
             </td>
-
         </tr>
     {% endfor %}
     </table>

@@ -14,11 +14,9 @@ class CustomSignupForm(SignupForm):
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']
         user.save()
-
         profile_pic = self.cleaned_data['profile_pic']
         contact_number = self.cleaned_data['contact_number']
         p = Profile(user = user , contact_number= contact_number ,profile_pic = profile_pic)
-
         p.save()
         return user
 
@@ -29,7 +27,6 @@ class TopiclistForm(forms.Form):
     def save(self, request):
         profile = request.user.profile
         topics = self.cleaned_data['topics']
-
         for topic in topics:
             topic = Topic.objects.get(pk=topic)
             profile.topics.add(topic)
@@ -50,7 +47,8 @@ class AnswerForm(forms.ModelForm):
     class Meta:
         model = Answer
         fields = '__all__'
-        widgets = {'user': forms.HiddenInput()}
+        widgets = {'user': forms.HiddenInput(),
+                   'question': forms.HiddenInput(),}
 
 class ActivityForm(forms.ModelForm):
     class Meta:
@@ -60,4 +58,3 @@ class ActivityForm(forms.ModelForm):
                    'activity_type': forms.HiddenInput(),
                    'content_type': forms.HiddenInput(),
                     }
-

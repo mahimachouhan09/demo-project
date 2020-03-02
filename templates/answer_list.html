@@ -41,6 +41,7 @@
         {% endfor %}
         </tr>
     </table>
+    <a href="{% url 'quora_app:add_answer' question.id %}" > add answer </a><br>
     <a href="{% url 'quora_app:question_list' %}" > Back </a><br>
     <a href="{% url 'quora_app:index' %}" > Back To index </a>
 </div>

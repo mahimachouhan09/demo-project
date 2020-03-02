@@ -71,7 +71,6 @@ class Answer(models.Model):
 class Follow(models.Model):
     following = models.ForeignKey(User, default="",on_delete=models.CASCADE,related_name='following')
     follower = models.ForeignKey(User,  default="",on_delete=models.CASCADE ,related_name='followers')
-#   follower=models.ManyToManyField(User)
     class Meta:
         unique_together = ('follower', 'following')
 
